@@ -107,7 +107,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4174987026447739089}
-  - {fileID: 7623520627126206140}
   m_Father: {fileID: 7627595368183507910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -211,6 +210,7 @@ RectTransform:
   m_Children:
   - {fileID: 3687547967832760448}
   - {fileID: 8047520257772688194}
+  - {fileID: 7623520627126206140}
   m_Father: {fileID: 3906474288320066719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -281,6 +281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c012b278b24e204d81634491da56e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::hpBar
+  slider: {fileID: 7300181452170503279}
+  target: {fileID: 0}
+  text: {fileID: 0}
 --- !u!1 &2538711265150692286
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,16 +345,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7905138950836179442}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3906474288320066719}
+  m_Father: {fileID: 4174987026447739089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -566, y: 154.1}
+  m_AnchoredPosition: {x: 20, y: 23.100006}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5605596926052627134
@@ -541,6 +544,7 @@ GameObject:
   - component: {fileID: 6602904132572234544}
   - component: {fileID: 2358416539283076243}
   - component: {fileID: 4899215803468903511}
+  - component: {fileID: 144461570544716993}
   m_Layer: 0
   m_Name: unit
   m_TagString: Untagged
@@ -635,6 +639,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57191499e1cf8e4459d79821a966040c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::unit
+  hp: 0
+  maxhp: 100
+  atk: 10
+  def: 0
+  isDead: 0
 --- !u!114 &4899215803468903511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,3 +656,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7932aea7541376d46bdd25e9aba2a40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::unitSelection
+--- !u!61 &144461570544716993
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8982331898702433738}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.031507492, y: 0.22055113}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.630146, y: 2.102755}
+  m_EdgeRadius: 0

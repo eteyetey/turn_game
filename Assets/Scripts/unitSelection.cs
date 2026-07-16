@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class unitSelection : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private Unit unit;
+    private battleManager bm;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        unit = GetComponent<Unit>();
+        bm = FindFirstObjectByType<battleManager>();
+    }
+    private void OnMouseDown()
+    {
+        bm.Selectunit(unit);
     }
 }
