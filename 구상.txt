@@ -1,0 +1,51 @@
+아주아주 간단한 턴제 게임임.
+에셋은 그냥 돌아다니는 무료 에셋 쓸꺼임
+처음에는 1ㄷ1로 시작해서 여러명끼리 싸우는 시스템을 구현할꺼임
+각자 체력바, 스킬 등이 있음
+공격은 아군 턴에 적을 지정해서 공격함
+적 또한 마찬가지. 다만 적 스킬 랜덤에 지정 대상도 랜덤(아마 패턴을 만들듯?)
+점점 강해지는 로그라이크 방식
+
+구조
+전투 시작
+→ 아군 턴
+→ 사용할 스킬 선택
+→ 적 대상 선택
+→ 공격 실행
+→ 사망 여부 확인
+→ 적 턴
+→ 적이 스킬과 대상 선택
+→ 공격 실행
+→ 한쪽 전멸까지 반복
+→ 승리 시 보상 및 강화
+→ 다음 전투
+
+BattleScene
+├─ BattleManager(턴,행동 담당)
+├─ PlayerUnit(말그대로 플레이어)
+│  ├─ Sprite
+│  ├─ SelectArea
+│  └─ HealthBar
+├─ EnemyUnit(말그대로 적)
+│  ├─ Sprite
+│  ├─ SelectArea
+│  └─ HealthBar
+├─ Canvas
+│  ├─ TurnText
+│  ├─ SkillPanel
+│  │  ├─ AttackButton
+│  │  └─ SkillButton
+│  ├─ BattleLogText
+│  └─ ResultPanel
+│     ├─ ResultText
+│     └─ RetryButton
+└─ EventSystem
+
+필요한 스크립트
+유닛(플레이어와 적 스탯 담당)
+배틀매니저
+유닛셀렉트(선택한 유닛을 배틀매니저에 갖다주는)
+체력바
+스킬
+스킬버튼(선택한 스킬을 배틀매니저로 전달)
+적AI(적 행동 담당)
