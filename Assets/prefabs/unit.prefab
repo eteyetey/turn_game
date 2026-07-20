@@ -702,6 +702,15 @@ MonoBehaviour:
   type: 0
   allyController: {fileID: 0}
   enemyController: {fileID: 0}
+  attackHitDelay: 0.4
+  attackEndDelay: 0.4
+  hitAnimationTime: 0.5
+  deathAnimationTime: 1
+  dashSpeed: 200
+  attackDistance: 2
+  afterAttackDelay: 0.15
+  damageTextPrefab: {fileID: 7853035515158376554, guid: 30b367084a7109a4eaf9ab49b406716f, type: 3}
+  damageTextOffset: {x: 0, y: 2, z: 0}
 --- !u!114 &4899215803468903511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,6 +723,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7932aea7541376d46bdd25e9aba2a40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::unitSelection
+  hoverColor: {r: 0.55, g: 0.55, b: 0.55, a: 1}
+  blinkSpeed: 6
+  minimumStrength: 0.25
 --- !u!61 &144461570544716993
 BoxCollider2D:
   m_ObjectHideFlags: 0

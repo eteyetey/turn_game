@@ -32,6 +32,10 @@ public class Unit : MonoBehaviour
     [SerializeField] private float attackDistance = 2f;
     [SerializeField] private float afterAttackDelay = 0.15f;
 
+    [Header("데미지 텍스트")]
+    [SerializeField] private DamageText damageTextPrefab;
+    [SerializeField] private Vector3 damageTextOffset = new Vector3(0f, 2f, 0f);
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Color originalColor;
@@ -50,6 +54,25 @@ public class Unit : MonoBehaviour
         }
 
         ApplyAnimatorController();
+    }
+    private void ShowDamageText(float damage)
+    {
+        if (damageTextPrefab == null)
+        {
+            return;
+        }
+
+        Vector3 spawnPosition = transform.position + damageTextOffset;
+
+        spawnPosition.x += Random.Range(-0.2f, 0.2f);
+
+        DamageText damageText = Instantiate(
+            damageTextPrefab,
+            spawnPosition,
+            Quaternion.identity
+        );
+
+        damageText.Setup(damage);
     }
 
     private void ApplyAnimatorController()
@@ -154,6 +177,8 @@ public class Unit : MonoBehaviour
 
         hp -= finalDamage;
         hp = Mathf.Max(0f, hp);
+
+        ShowDamageText(finalDamage);
 
         if (hp <= 0f)
         {

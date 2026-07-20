@@ -62,6 +62,30 @@ public class battleManager : MonoBehaviour
 
         StartCoroutine(PlayerAttack(target));
     }
+    public bool CanSelectTarget(Unit target)
+    {
+        if (target == null)
+        {
+            return false;
+        }
+
+        if (status != BattleStatus.Selecting)
+        {
+            return false;
+        }
+
+        if (target.type != Unit.UnitType.Enemy)
+        {
+            return false;
+        }
+
+        if (target.isDead)
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     private IEnumerator PlayerAttack(Unit target)
     {

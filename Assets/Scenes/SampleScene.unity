@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 4723107735738678597, guid: 7348d933e3316114184cf458c1424438, type: 3}
     - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: atk
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: type
