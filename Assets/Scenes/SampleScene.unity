@@ -1099,16 +1099,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1285325177149977596, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1285325177149977596, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1397059781916886574, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4723107735738678597, guid: 7348d933e3316114184cf458c1424438, type: 3}
+    - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
+      propertyPath: allyController
+      value: 
+      objectReference: {fileID: 9100000, guid: 25fa5ff02a6387647aef8ba3e1ec9d71, type: 2}
     - target: {fileID: 5793743334953929872, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

@@ -16,14 +16,14 @@ public class hpBar : MonoBehaviour
     }
     private void Start()
     {
-        slider.maxValue = target.maxhp;
+        slider.maxValue = target.maxHp;
         slider.value = target.hp;
-        text.SetText($"{target.hp:0}/{target.maxhp:0}");
+        text.SetText($"{target.hp:0}/{target.maxHp:0}");
     }
     private void Update()
     {
         slider.value = target.hp;
-        text.SetText($"{target.hp:0}/{target.maxhp:0}");
+        text.SetText($"{target.hp:0}/{target.maxHp:0}");
     }
 
 }

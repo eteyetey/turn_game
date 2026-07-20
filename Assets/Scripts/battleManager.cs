@@ -49,7 +49,7 @@ public class battleManager : MonoBehaviour
             return;
         }
         //선택한것이 적이 아니라면 무효
-        if(target.type!=Unit.unitType.Enemy)
+        if(target.type!=Unit.UnitType.Enemy)
         {
             return ;
         }
