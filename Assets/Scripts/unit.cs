@@ -27,6 +27,11 @@ public class Unit : MonoBehaviour
     [SerializeField] private float hitAnimationTime = 0.5f;
     [SerializeField] private float deathAnimationTime = 1f;
 
+    [Header("공격 이동 설정")]
+    [SerializeField] private float dashSpeed = 200f;
+    [SerializeField] private float attackDistance = 2f;
+    [SerializeField] private float afterAttackDelay = 0.15f;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Color originalColor;
@@ -67,7 +72,6 @@ public class Unit : MonoBehaviour
         }
     }
 
-    // 공격 애니메이션부터 피해 처리까지 전부 담당
     public IEnumerator Attack(Unit target)
     {
         if (isDead || target == null || target.isDead)
@@ -75,21 +79,37 @@ public class Unit : MonoBehaviour
             yield break;
         }
 
-        // 이전 트리거가 남아 있는 경우를 방지
-        animator.ResetTrigger("Hit");
-        animator.ResetTrigger("Death");
-        animator.SetTrigger("Attack");
+        Vector3 startPosition = transform.position;
 
-        // 공격 모션에서 실제 타격 시점까지 기다림
+        Vector3 direction =
+            (target.transform.position - transform.position).normalized;
+
+        Vector3 attackPosition =
+            target.transform.position - direction * attackDistance;
+
+        attackPosition.y = startPosition.y;
+        attackPosition.z = startPosition.z;
+
+        // 상대 앞으로 이동
+        yield return StartCoroutine(
+            MoveToPosition(attackPosition)
+        );
+
+        if (animator != null)
+        {
+            animator.ResetTrigger("Hit");
+            animator.ResetTrigger("Death");
+            animator.SetTrigger("Attack");
+        }
+
+        // 공격이 실제로 맞는 시점
         yield return new WaitForSeconds(attackHitDelay);
 
-        // 타격 시점에 피해 적용
         target.TakeDamage(atk);
 
-        // 공격 모션의 남은 부분 대기
+        // 공격 모션 마무리
         yield return new WaitForSeconds(attackEndDelay);
 
-        // 맞은 유닛의 피격 또는 사망 모션 대기
         if (target.isDead)
         {
             yield return new WaitForSeconds(target.deathAnimationTime);
@@ -98,6 +118,29 @@ public class Unit : MonoBehaviour
         {
             yield return new WaitForSeconds(target.hitAnimationTime);
         }
+
+        yield return new WaitForSeconds(afterAttackDelay);
+
+        // 제자리로 복귀
+        yield return StartCoroutine(
+            MoveToPosition(startPosition)
+        );
+    }
+
+    private IEnumerator MoveToPosition(Vector3 destination)
+    {
+        while (Vector3.Distance(transform.position, destination) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                destination,
+                dashSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        transform.position = destination;
     }
 
     public void TakeDamage(float damage)
@@ -128,8 +171,6 @@ public class Unit : MonoBehaviour
             animator.ResetTrigger("Death");
             animator.SetTrigger("Hit");
         }
-
-        StartCoroutine(HitEffect());
     }
 
     private void Die()
@@ -143,19 +184,5 @@ public class Unit : MonoBehaviour
             animator.ResetTrigger("Hit");
             animator.SetTrigger("Death");
         }
-    }
-
-    private IEnumerator HitEffect()
-    {
-        if (spriteRenderer == null)
-        {
-            yield break;
-        }
-
-        spriteRenderer.color = originalColor * 0.5f;
-
-        yield return new WaitForSeconds(0.1f);
-
-        spriteRenderer.color = originalColor;
     }
 }

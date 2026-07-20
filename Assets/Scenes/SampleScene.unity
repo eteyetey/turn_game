@@ -155,6 +155,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
+      propertyPath: dashSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: enemyController
       value: 
       objectReference: {fileID: 9100000, guid: 3b22e427920538143b9bef2ad071ce16, type: 2}
@@ -1125,6 +1129,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4723107735738678597, guid: 7348d933e3316114184cf458c1424438, type: 3}
+    - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
+      propertyPath: dashSpeed
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: allyController
       value: 
