@@ -32,13 +32,21 @@ public class Unit : MonoBehaviour
     [SerializeField] private float attackDistance = 2f;
     [SerializeField] private float afterAttackDelay = 0.15f;
 
+    [Header("공격 중 렌더링 순서")]
+    [Tooltip("공격할 때 캐릭터가 상대보다 위에 보이도록 사용할 Order in Layer")]
+    [SerializeField] private int attackingSortingOrder = 10;
+
     [Header("데미지 텍스트")]
     [SerializeField] private DamageText damageTextPrefab;
-    [SerializeField] private Vector3 damageTextOffset = new Vector3(0f, 2f, 0f);
+    [SerializeField]
+    private Vector3 damageTextOffset =
+        new Vector3(0f, 2f, 0f);
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+
     private Color originalColor;
+    private int originalSortingOrder;
 
     private void Awake()
     {
@@ -51,10 +59,16 @@ public class Unit : MonoBehaviour
         if (spriteRenderer != null)
         {
             originalColor = spriteRenderer.color;
+            originalSortingOrder = spriteRenderer.sortingOrder;
+        }
+        else
+        {
+            Debug.LogError($"{name}의 자식에 SpriteRenderer가 없음");
         }
 
         ApplyAnimatorController();
     }
+
     private void ShowDamageText(float damage)
     {
         if (damageTextPrefab == null)
@@ -113,6 +127,9 @@ public class Unit : MonoBehaviour
         attackPosition.y = startPosition.y;
         attackPosition.z = startPosition.z;
 
+        // 공격자가 상대보다 위에 보이도록 렌더링 순서를 올림
+        SetAttackingSortingOrder();
+
         // 상대 앞으로 이동
         yield return StartCoroutine(
             MoveToPosition(attackPosition)
@@ -135,11 +152,15 @@ public class Unit : MonoBehaviour
 
         if (target.isDead)
         {
-            yield return new WaitForSeconds(target.deathAnimationTime);
+            yield return new WaitForSeconds(
+                target.deathAnimationTime
+            );
         }
         else
         {
-            yield return new WaitForSeconds(target.hitAnimationTime);
+            yield return new WaitForSeconds(
+                target.hitAnimationTime
+            );
         }
 
         yield return new WaitForSeconds(afterAttackDelay);
@@ -148,11 +169,19 @@ public class Unit : MonoBehaviour
         yield return StartCoroutine(
             MoveToPosition(startPosition)
         );
+
+        // 공격이 끝났으므로 원래 렌더링 순서로 복구
+        ResetSortingOrder();
     }
 
     private IEnumerator MoveToPosition(Vector3 destination)
     {
-        while (Vector3.Distance(transform.position, destination) > 0.01f)
+        while (
+            Vector3.Distance(
+                transform.position,
+                destination
+            ) > 0.01f
+        )
         {
             transform.position = Vector3.MoveTowards(
                 transform.position,
@@ -164,6 +193,26 @@ public class Unit : MonoBehaviour
         }
 
         transform.position = destination;
+    }
+
+    private void SetAttackingSortingOrder()
+    {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
+        spriteRenderer.sortingOrder = attackingSortingOrder;
+    }
+
+    private void ResetSortingOrder()
+    {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
+        spriteRenderer.sortingOrder = originalSortingOrder;
     }
 
     public void TakeDamage(float damage)
