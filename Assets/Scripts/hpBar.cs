@@ -2,28 +2,47 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class hpBar : MonoBehaviour
+public class HpBar : MonoBehaviour
 {
-    public Slider slider;
-    public Unit target;
-    public TMP_Text text;
+    [Header("체력바가 표시할 유닛")]
+    [SerializeField] private Unit targetUnit;
 
-    private void Awake()
-    {
-        slider = GetComponent<Slider>();
-        target = GetComponentInParent<Unit>();
-        text = GetComponentInChildren<TMP_Text>();
-    }
+    [Header("UI")]
+    [SerializeField] private Slider hpSlider;
+    [SerializeField] private TMP_Text hpText;
+
     private void Start()
     {
-        slider.maxValue = target.maxHp;
-        slider.value = target.hp;
-        text.SetText($"{target.hp:0}/{target.maxHp:0}");
-    }
-    private void Update()
-    {
-        slider.value = target.hp;
-        text.SetText($"{target.hp:0}/{target.maxHp:0}");
+        Refresh();
     }
 
+    private void Update()
+    {
+        Refresh();
+    }
+
+    public void SetTarget(Unit newTarget)
+    {
+        targetUnit = newTarget;
+        Refresh();
+    }
+
+    private void Refresh()
+    {
+        if (targetUnit == null || hpSlider == null)
+        {
+            return;
+        }
+
+        hpSlider.minValue = 0f;
+        hpSlider.maxValue = targetUnit.maxHp;
+        hpSlider.value = targetUnit.hp;
+
+        if (hpText != null)
+        {
+            hpText.text =
+                $"{Mathf.CeilToInt(targetUnit.hp)} / " +
+                $"{Mathf.CeilToInt(targetUnit.maxHp)}";
+        }
+    }
 }
