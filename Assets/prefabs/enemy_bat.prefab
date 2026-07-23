@@ -29,6 +29,10 @@ PrefabInstance:
       value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
+      propertyPath: attackDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2358416539283076243, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: enemyController
       value: 
       objectReference: {fileID: 9100000, guid: 3b22e427920538143b9bef2ad071ce16, type: 2}
@@ -94,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8982331898702433738, guid: 60af09c49c0d2294282db12dfcf55e25, type: 3}
       propertyPath: m_Name
-      value: enemy Variant
+      value: enemy_bat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -127,7 +127,7 @@ public class Unit : MonoBehaviour
         attackPosition.y = startPosition.y;
         attackPosition.z = startPosition.z;
 
-        // 공격자가 상대보다 위에 보이도록 렌더링 순서를 올림
+        // 공격자를 피격자보다 앞에 표시
         SetAttackingSortingOrder();
 
         // 상대 앞으로 이동
@@ -140,16 +140,18 @@ public class Unit : MonoBehaviour
             animator.ResetTrigger("Hit");
             animator.ResetTrigger("Death");
             animator.SetTrigger("Attack");
+
+            // 공격 애니메이션이 실제로 시작되고
+            // 완전히 끝날 때까지 기다림
+            yield return StartCoroutine(
+                WaitForAttackAnimation()
+            );
         }
 
-        // 공격이 실제로 맞는 시점
-        yield return new WaitForSeconds(attackHitDelay);
-
+        // 공격 모션이 완전히 끝난 뒤 데미지 적용
         target.TakeDamage(atk);
 
-        // 공격 모션 마무리
-        yield return new WaitForSeconds(attackEndDelay);
-
+        // 피격 또는 사망 애니메이션 대기
         if (target.isDead)
         {
             yield return new WaitForSeconds(
@@ -165,12 +167,12 @@ public class Unit : MonoBehaviour
 
         yield return new WaitForSeconds(afterAttackDelay);
 
-        // 제자리로 복귀
+        // 원래 위치로 복귀
         yield return StartCoroutine(
             MoveToPosition(startPosition)
         );
 
-        // 공격이 끝났으므로 원래 렌더링 순서로 복구
+        // 원래 렌더링 순서로 복구
         ResetSortingOrder();
     }
 
@@ -257,6 +259,26 @@ public class Unit : MonoBehaviour
             animator.ResetTrigger("Attack");
             animator.ResetTrigger("Hit");
             animator.SetTrigger("Death");
+        }
+    }
+    private IEnumerator WaitForAttackAnimation()
+    {
+        if (animator == null)
+        {
+            yield break;
+        }
+
+        // SetTrigger 직후에는 아직 Idle일 수 있으므로
+        // 실제로 Attack 상태에 들어갈 때까지 기다림
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            yield return null;
+        }
+
+        // Attack 상태에서 완전히 빠져나올 때까지 기다림
+        while (animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            yield return null;
         }
     }
 }

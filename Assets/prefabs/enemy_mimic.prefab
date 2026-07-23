@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 392325527117236837, guid: a567b3437ccfebd43b8dc98a183f1efa, type: 3}
+      propertyPath: attackDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 392325527117236837, guid: a567b3437ccfebd43b8dc98a183f1efa, type: 3}
       propertyPath: enemyController
       value: 
       objectReference: {fileID: 9100000, guid: 973852a894dffd54396ee543dae89a11, type: 2}
@@ -58,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6443720745253745468, guid: a567b3437ccfebd43b8dc98a183f1efa, type: 3}
       propertyPath: m_Name
-      value: enemy Variant
+      value: enemy_mimic
       objectReference: {fileID: 0}
     - target: {fileID: 8479315441813877350, guid: a567b3437ccfebd43b8dc98a183f1efa, type: 3}
       propertyPath: m_AnchorMax.x
